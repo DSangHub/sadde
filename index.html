@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="pa" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ਸੱਦੇ | Saddē - Send Gifts, Sweets & Religious Offerings</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Gurmukhi:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+        body {
+            font-family: 'Noto Sans Gurmukhi', 'Plus Jakarta Sans', sans-serif;
+            background-color: #0b0f19;
+            color: #f3f4f6;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #f59e0b 0%, #ec4899 50%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card {
+            background: rgba(31, 41, 55, 0.5);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(245, 158, 11, 0.4);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-amber-500 selection:text-black">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-50 glass-panel border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-pink-500 flex items-center justify-center font-bold text-black text-xl shadow-lg shadow-amber-500/20">
+                    ਸ
+                </div>
+                <div>
+                    <span class="text-2xl font-black tracking-tight text-white">ਸੱਦੇ <span class="text-xs font-semibold text-amber-400 tracking-normal border border-amber-500/30 px-2 py-0.5 rounded-full bg-amber-500/10">sadde.app</span></span>
+                </div>
+            </div>
+
+            <!-- Controls & Auth -->
+            <div class="flex items-center gap-3 sm:gap-4">
+                <!-- Language Selector -->
+                <div class="relative">
+                    <select id="langSelect" onchange="changeLanguage(this.value)" class="bg-gray-800 border border-gray-700 text-gray-200 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 p-2.5 pr-8 appearance-none cursor-pointer font-medium">
+                        <option value="pa" selected>ਪੰਜਾਬੀ (Punjabi)</option>
+                        <option value="hi">हिन्दी (Hindi)</option>
+                        <option value="en">English</option>
+                        <option value="ur">اردو (Urdu)</option>
+                        <option value="bn">বাংলা (Bengali)</option>
+                        <option value="ta">தமிழ் (Tamil)</option>
+                        <option value="te">తెలుగు (Telugu)</option>
+                        <option value="gu">ગુજરાતી (Gujarati)</option>
+                        <option value="mr">ਮਰਾਠੀ (Marathi)</option>
+                    </select>
+                    <i data-lucide="globe" class="w-4 h-4 absolute right-2.5 top-3.5 text-gray-400 pointer-events-none"></i>
+                </div>
+
+                <!-- Account Toggle / Login -->
+                <button onclick="toggleAuthModal()" class="hidden sm:flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-black font-bold px-4 py-2.5 rounded-xl transition shadow-lg shadow-amber-500/10 text-sm">
+                    <i data-lucide="user" class="w-4 h-4"></i>
+                    <span id="navAuthText">ਮੇਜ਼ਬਾਨ / ਮਹਿਮਾਨ ਲੌਗਇਨ</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative py-12 lg:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-amber-500/20 bg-amber-500/10 text-amber-400 text-xs sm:text-sm font-medium mb-6">
+            <i data-lucide="sparkles" class="w-4 h-4"></i>
+            <span id="heroBadge">ਬਹੁਤ ਸਾਰੇ ਸੱਦੇ? ਸਮਾਂ ਘੱਟ ਹੈ? ਕੋਈ ਗੱਲ ਨਹੀਂ!</span>
+        </div>
+        
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
+            <span id="heroTitle1">ਕਿਸੇ ਵੀ ਸਮਾਗਮ ਅਤੇ ਧਾਰਮਿਕ ਅਸਥਾਨ ਲਈ</span> <br>
+            <span class="gradient-text" id="heroTitle2">ਸ਼ਗਨ, ਭੇਟਾ ਅਤੇ ਮਿਠਾਈਆਂ ਭੇਜੋ</span>
+        </h1>
+        
+        <p class="max-w-2xl mx-auto text-gray-400 text-base sm:text-lg mb-10 leading-relaxed" id="heroSubtitle">
+            ਜੇਕਰ ਤੁਸੀਂ ਸ਼ਾਮਲ ਨਹੀਂ ਹੋ ਸਕਦੇ, ਤਾਂ ਵੀ ਆਪਣੇ ਅਜ਼ੀਜ਼ਾਂ ਦੀਆਂ ਖੁਸ਼ੀਆਂ ਅਤੇ ਧਾਰਮਿਕ ਸਮਾਗਮਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ। ਆਪਣੇ ਫੋਨ ਤੋਂ ਸਿੱਧਾ ਸ਼ਗਨ, ਵਧਾਈ ਕਾਰਡ, ਮਿਠਾਈਆਂ ਅਤੇ ਵੈਰੀਫਾਈਡ ਧਾਰਮਿਕ ਸੰਸਥਾਵਾਂ ਨੂੰ ਭੇਟਾ ਭੇਜੋ।
+        </p>
+
+        <!-- Search Event Bar (Hashtag / Mohr) -->
+        <div class="max-w-xl mx-auto mb-12">
+            <div class="glass-panel p-2 rounded-2xl flex items-center shadow-2xl border border-gray-700 focus-within:border-amber-500 transition">
+                <div class="pl-4 text-amber-500 font-bold text-lg">#</div>
+                <input type="text" id="eventSearchInput" placeholder="ਹੈਸ਼ਟੈਗ, ਮੋਹਰ/ਸਟੈਂਪ ਜਾਂ ਧਾਰਮਿਕ ਅਸਥਾਨ ਲੱਭੋ (e.g. #GurudwaraLudhiana)" class="w-full bg-transparent px-3 py-3 text-white placeholder-gray-500 focus:outline-none text-sm sm:text-base">
+                <button onclick="searchEvent()" class="bg-amber-500 hover:bg-amber-600 text-black font-bold px-6 py-3 rounded-xl flex items-center gap-2 transition flex-shrink-0">
+                    <i data-lucide="search" class="w-5 h-5"></i>
+                    <span class="hidden sm:inline" id="searchBtnText">ਲੱਭੋ</span>
+                </button>
+            </div>
+            <p class="text-xs text-gray-500 mt-2 text-left px-2" id="searchHelp">ਮੇਜ਼ਬਾਨ ਜਾਂ ਵੈਰੀਫਾਈਡ ਧਾਰਮਿਕ ਅਸਥਾਨ ਦੁਆਰਾ ਦਿੱਤਾ ਗਿਆ ਹੈਸ਼ਟੈਗ (Hashtag) ਜਾਂ ਸਟੈਂਪ/ਮੋਹਰ ਵਰਤੋ।</p>
+        </div>
+    </section>
+
+    <!-- CORE FEATURES GRID (4 COLUMNS INCLUDING VERIFIED RELIGIOUS ORGANIZATIONS) -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            <!-- Shagan & Money Transfer -->
+            <div class="glass-card p-6 rounded-2xl">
+                <div class="w-12 h-12 bg-amber-500/10 border border-amber-500/20 rounded-xl flex items-center justify-center text-amber-400 mb-4">
+                    <i data-lucide="smartphone" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2" id="feature1Title">ਡਿਜੀਟਲ ਸ਼ਗਨ (Money Gift)</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4" id="feature1Desc">
+                    Google Pay, PhonePe, ਜਾਂ Paytm ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਸਿੱਧਾ ਮੇਜ਼ਬਾਨ ਨੂੰ ਸ਼ਗਨ ਭੇਜੋ। 5 ਦਿਨਾਂ ਦੀ ਫੰਡ ਹੋਲਡ ਸੁਰੱਖਿਆ ਨਾਲ ਪੂਰੀ ਤਰ੍ਹਾਂ ਸੁਰੱਖਿਅਤ।
+                </p>
+                <div class="flex items-center gap-2 text-xs text-amber-400/80 bg-amber-500/5 p-2 rounded-lg border border-amber-500/10">
+                    <i data-lucide="shield-check" class="w-4 h-4"></i>
+                    <span>2% ਫੀਸ (ਧਾਰਮਿਕ ਸ਼ਗਨ ਲਈ ਸਿਰਫ 1%)</span>
+                </div>
+            </div>
+
+            <!-- Greeting Cards & Occasions -->
+            <div class="glass-card p-6 rounded-2xl">
+                <div class="w-12 h-12 bg-pink-500/10 border border-pink-500/20 rounded-xl flex items-center justify-center text-pink-400 mb-4">
+                    <i data-lucide="heart" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2" id="feature2Title">ਵਧਾਈ ਕਾਰਡ ਅਤੇ ਮੌਕੇ</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4" id="feature2Desc">
+                    ਜਨਮਦਿਨ, ਵਿਆਹ, ਸਾਲਗ੍ਰਿਹ, ਗ੍ਰੈਜੂਏਸ਼ਨ ਜਾਂ ਆਪਣਾ ਨਿੱਜੀ ਮੌਕਾ ਚੁਣੋ। ਆਪਣੀਆਂ ਭਾਵਨਾਵਾਂ ਨੂੰ ਸੁੰਦਰ ਡਿਜੀਟਲ ਕਾਰਡ ਰਾਹੀਂ ਬਿਆਨ ਕਰੋ।
+                </p>
+                <span class="text-xs bg-gray-800 text-gray-300 px-2.5 py-1 rounded-full border border-gray-700">ਸਿਖ, ਹਿੰਦੂ, ਮੁਸਲਿਮ, ਈਸਾਈ ਪਵਿੱਤਰ ਦਿਹਾੜੇ</span>
+            </div>
+
+            <!-- NEW: Registered Religious Organizations -->
+            <div class="glass-card p-6 rounded-2xl border-emerald-500/20 hover:border-emerald-500/50">
+                <div class="w-12 h-12 bg-emerald-500/10 border border-emerald-500/20 rounded-xl flex items-center justify-center text-emerald-400 mb-4">
+                    <i data-lucide="building-2" class="w-6 h-6"></i>
+                </div>
+                <div class="flex items-center justify-between mb-1">
+                    <h3 class="text-xl font-bold text-white" id="feature4Title">ਧਾਰਮਿਕ ਸੰਸਥਾਵਾਂ</h3>
+                    <span class="bg-emerald-500/20 text-emerald-400 text-[10px] uppercase font-bold px-2 py-0.5 rounded-md border border-emerald-500/30">Verified</span>
+                </div>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4" id="feature4Desc">
+                    ਰਜਿਸਟਰਡ ਗੁਰਦੁਆਰਾ ਸਾਹਿਬ, ਮੰਦਰ, ਮਸਜਿਦ ਅਤੇ ਚਰਚ ਆਪਣੀ ਪ੍ਰੋਫਾਈਲ ਬਣਾ ਕੇ ਸ਼ਗਨ ਅਤੇ ਭੇਟਾ ਪ੍ਰਾਪਤ ਕਰ ਸਕਦੇ ਹਨ। ਵੈਰੀਫਿਕੇਸ਼ਨ ਜ਼ਰੂਰੀ ਹੈ।
+                </p>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs bg-emerald-500/10 text-emerald-300 px-2.5 py-1 rounded-full border border-emerald-500/20">ਸਿਰਫ 1% ਪ੍ਰੋਸੈਸਿੰਗ ਫੀਸ</span>
+                    <button onclick="openOrgModal()" class="text-xs text-amber-400 font-semibold hover:underline">ਰਜਿਸਟਰ ਕਰੋ &rarr;</button>
+                </div>
+            </div>
+
+            <!-- Local Sweets & Delivery Integration -->
+            <div class="glass-card p-6 rounded-2xl">
+                <div class="w-12 h-12 bg-purple-500/10 border border-purple-500/20 rounded-xl flex items-center justify-center text-purple-400 mb-4">
+                    <i data-lucide="shopping-bag" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2" id="feature3Title">ਸਥਾਨਕ ਮਿਠਾਈਆਂ (Sweet Shops)</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4" id="feature3Desc">
+                    ਜਿਓਲੋਕੇਸ਼ਨ (Geolocation) ਰਾਹੀਂ ਨੇੜਲੀਆਂ ਮਿਠਾਈ ਦੀਆਂ ਦੁਕਾਨਾਂ ਨਾਲ ਜੁੜੋ। Zomato ਅਤੇ ਹੋਰ ਡਿਲੀਵਰੀ ਐਪਸ ਰਾਹੀਂ ਤੁਰੰਤ ਮਿਠਾਈ ਘਰ ਪਹੁੰਚਾਓ।
+                </p>
+                <span class="text-xs bg-purple-500/10 text-purple-300 px-2.5 py-1 rounded-full border border-purple-500/20">ਜ਼ੋਮੈਟੋ (Zomato) ਨਾਲ ਜੁੜਿਆ</span>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- INTERACTIVE EVENT & GIFTING SIMULATOR -->
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full">
+        <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-gray-800 relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <h2 class="text-2xl sm:text-3xl font-bold text-white mb-6 flex items-center gap-3" id="demoTitle">
+                <i data-lucide="gift" class="text-amber-400"></i>
+                <span>ਸ਼ਗਨ, ਭੇਟਾ ਅਤੇ ਤੋਹਫ਼ਾ ਭੇਜੋ (Send Gift Demo)</span>
+            </h2>
+
+            <form onsubmit="handleSendGift(event)" class="space-y-5">
+                
+                <!-- Category / Religious Selection -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2" id="lblCategory">ਮੌਕਾ / ਪ੍ਰਾਪਤਕਰਤਾ ਚੁਣੋ (Select Type)</label>
+                        <select id="occasionType" onchange="toggleOccasionDropdowns()" class="w-full bg-gray-900 border border-gray-700 rounded-xl p-3 text-white focus:ring-amber-500 focus:border-amber-500 text-sm">
+                            <option value="celebration">ਵਿਆਹ / ਜਨਮਦਿਨ / ਸਾਲਗ੍ਰਿਹ (Celebration - 2% fee)</option>
+                            <option value="religious_org">ਰਜਿਸਟਰਡ ਧਾਰਮਿਕ ਅਸਥਾਨ (Verified Religious Org - 1% fee)</option>
+                            <option value="religious">ਧਾਰਮਿਕ ਸਮਾਗਮ (Holy Day Celebration - 1% fee)</option>
+                            <option value="custom">ਆਪਣਾ ਮੌਕਾ ਜੋੜੋ (Custom Event)</option>
+                        </select>
+                    </div>
+
+                    <!-- Dynamic Holy Days / Verified Org Dropdown -->
+                    <div id="religiousDropdownContainer">
+                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2" id="lblHolyDays">ਪਵਿੱਤਰ ਦਿਹਾੜਾ / ਵੈਰੀਫਾਈਡ ਅਸਥਾਨ (Holy Days / Organizations)</label>
+                        <select class="w-full bg-gray-900 border border-gray-700 rounded-xl p-3 text-white focus:ring-amber-500 focus:border-amber-500 text-sm">
+                            <optgroup label="Sikh Gurudwaras & Holy Days">
+                                <option>ਗੁਰਦੁਆਰਾ ਦੂਖ ਨਿਵਾਰਨ ਸਾਹਿਬ (Verified Org)</option>
+                                <option>ਗੁਰਪੁਰਬ (Gurpurab)</option>
+                                <option>ਵਿਸਾਖੀ (Vaisakhi)</option>
+                                <option>ਬੰਦੀ ਛੋੜ ਦਿਵਸ (Bandi Chhor Divas)</option>
+                            </optgroup>
+                            <optgroup label="Hindu Mandirs & Holy Days">
+                                <option>ਸ਼੍ਰੀ ਸਨਾਤਨ ਧਰਮ ਮੰਦਿਰ (Verified Org)</option>
+                                <option>ਦੀਵਾਲੀ (Diwali)</option>
+                                <option>ਮਹਾ ਸ਼ਿਵਰਾਤਰੀ (Maha Shivratri)</option>
+                                <option>ਜਨਮਾਸ਼ਟਮੀ (Janmashtami)</option>
+                            </optgroup>
+                            <optgroup label="Muslim Mosques & Holy Days">
+                                <option>ਜਾਮਾ ਮਸਜਿਦ ਟਰੱਸਟ (Verified Org)</option>
+                                <option>ਈਦ-ਉਲ-ਫਿਤਰ (Eid al-Fitr)</option>
+                                <option>ਈਦ-ਉਲ-ਅਜ਼ਹਾ (Eid al-Adha)</option>
+                                <option>ਮਿਲਾਨ-ਉਨ-ਨਬੀ (Milad un-Nabi)</option>
+                            </optgroup>
+                            <optgroup label="Christian Churches & Holy Days">
+                                <option>ਸੈਂਟ ਮੈਰੀ ਕੈਥੋਲਿਕ ਚਰਚ (Verified Org)</option>
+                                <option>ਕ੍ਰਿਸਮਸ (Christmas)</option>
+                                <option>ਈਸਟਰ (Easter)</option>
+                                <option>ਗੁੱਡ ਫ੍ਰਾਈਡੇ (Good Friday)</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Event Details Display -->
+                <div class="bg-gray-900/60 p-4 rounded-xl border border-gray-800 text-xs sm:text-sm text-gray-300 space-y-1">
+                    <p class="font-semibold text-amber-400 mb-1" id="eventDetailHeader">ਸਮਾਗਮ / ਅਸਥਾਨ ਦੇ ਵੇਰਵੇ (Details):</p>
+                    <div class="flex flex-wrap gap-4 text-gray-400">
+                        <span><strong class="text-gray-200">ਮਿਤੀ:</strong> 25 ਨਵੰਬਰ 2026</span>
+                        <span><strong class="text-gray-200">ਸਮਾਂ:</strong> ਸਵੇਰੇ 11:00 ਵਜੇ</span>
+                        <span><strong class="text-gray-200">ਸਥਾਨ:</strong> ਰਾਇਲ ਪੈਲੇਸ / ਵੈਰੀਫਾਈਡ ਅਸਥਾਨ, ਲੁਧਿਆਣਾ</span>
+                    </div>
+                </div>
+
+                <!-- Gift Amount & Card Message -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2" id="lblAmount">ਸ਼ਗਨ / ਭੇਟਾ ਰਾਸ਼ੀ (Amount in ₹ / $)</label>
+                        <input type="number" placeholder="₹2100" required class="w-full bg-gray-900 border border-gray-700 rounded-xl p-3 text-white focus:ring-amber-500 focus:border-amber-500 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2" id="lblPayment">ਭੁਗਤਾਨ ਦਾ ਤਰੀਕਾ (Payment Partner)</label>
+                        <select class="w-full bg-gray-900 border border-gray-700 rounded-xl p-3 text-white focus:ring-amber-500 focus:border-amber-500 text-sm">
+                            <option>Google Pay</option>
+                            <option>PhonePe</option>
+                            <option>Paytm</option>
+                            <option>Credit / Debit Card</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Card Message -->
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2" id="lblMessage">ਵਧਾਈ / ਅਰਦਾਸ ਸੰਦੇਸ਼ (Card Message / Prayer Note)</label>
+                    <textarea rows="2" placeholder="ਆਪਣੀਆਂ ਭਾਵਨਾਵਾਂ ਜਾਂ ਅਰਦਾਸ ਲਿਖੋ..." class="w-full bg-gray-900 border border-gray-700 rounded-xl p-3 text-white focus:ring-amber-500 focus:border-amber-500 text-sm"></textarea>
+                </div>
+
+                <!-- Local Sweet Ordering Integration -->
+                <div class="p-4 rounded-xl border border-dashed border-gray-700 bg-gray-900/40">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm font-semibold text-white flex items-center gap-2">
+                            <i data-lucide="map-pin" class="w-4 h-4 text-purple-400"></i>
+                            <span id="lblSweets">ਨੇੜਲੀ ਦੁਕਾਨ ਤੋਂ ਮਿਠਾਈ / ਪ੍ਰਸਾਦ ਸ਼ਾਮਲ ਕਰੋ (Add Sweets/Prasad)</span>
+                        </span>
+                        <span class="text-xs text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded">Zomato Enabled</span>
+                    </div>
+                    <select class="w-full bg-gray-900 border border-gray-700 rounded-xl p-2.5 text-white text-xs sm:text-sm">
+                        <option value="">ਮਿਠਾਈ/ਪ੍ਰਸਾਦ ਨਾ ਚੁਣੋ (No sweets)</option>
+                        <option>ਬਰਫੀ ਡੱਬਾ - 1 ਕਿਲੋ (ਬੰਸਲ ਸਵੀਟਸ) - ₹600</option>
+                        <option>ਗੁਲਾਬ ਜਾਮੁਨ - 1 ਕਿਲੋ (ਲਵਲੀ ਸਵੀਟਸ) - ₹500</option>
+                        <option>ਕਾਜੂ ਕਤਲੀ ਪ੍ਰੀਮੀਅਮ ਪੈਕ - ₹1200</option>
+                    </select>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="w-full bg-gradient-to-r from-amber-500 via-pink-500 to-purple-600 hover:opacity-95 text-black font-bold py-3.5 rounded-xl transition shadow-xl text-base flex items-center justify-center gap-2">
+                    <i data-lucide="send" class="w-5 h-5"></i>
+                    <span id="btnSend">ਇੱਕ ਟੈਪ ਨਾਲ ਸ਼ਗਨ / ਭੇਟਾ ਭੇਜੋ</span>
+                </button>
+                
+                <p class="text-center text-xs text-gray-500 mt-2">
+                    * ਧੋਖਾਧੜੀ ਰੋਕਣ ਲਈ ਫੰਡ 5 ਦਿਨਾਂ ਦੇ ਹੋਲਡ ਤੋਂ ਬਾਅਦ ਮੇਜ਼ਬਾਨ/ਧਾਰਮਿਕ ਸੰਸਥਾ ਦੇ ਖਾਤੇ ਵਿੱਚ ਭੇਜੇ ਜਾਣਗੇ।
+                </p>
+            </form>
+        </div>
+    </section>
+
+    <!-- RELIGIOUS ORG REGISTRATION MODAL SIMULATION -->
+    <div id="orgModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+        <div class="glass-panel p-6 sm:p-8 rounded-3xl max-w-lg w-full border border-emerald-500/30 relative">
+            <button onclick="closeOrgModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 bg-emerald-500/20 text-emerald-400 rounded-xl flex items-center justify-center">
+                    <i data-lucide="shield-check" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white">ਧਾਰਮਿਕ ਸੰਸਥਾ ਰਜਿਸਟ੍ਰੇਸ਼ਨ</h3>
+                    <p class="text-xs text-emerald-400">1% Processing Fee • Verification Required</p>
+                </div>
+            </div>
+            <p class="text-xs text-gray-400 mb-6">ਗੁਰਦੁਆਰੇ, ਮੰਦਿਰ, ਮਸਜਿਦਾਂ ਅਤੇ ਚਰਚ ਸੰਗਤ ਤੋਂ ਸਿੱਧਾ ਡਿਜੀਟਲ ਭੇਟਾ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਰਜਿਸਟਰ ਕਰ ਸਕਦੇ ਹਨ।</p>
+            
+            <form onsubmit="handleOrgRegister(event)" class="space-y-4 text-sm">
+                <div>
+                    <label class="block text-xs font-medium text-gray-300 mb-1">ਸੰਸਥਾ ਦਾ ਨਾਮ (Organization Name)</label>
+                    <input type="text" required placeholder="e.g. Gurudwara Sahib / Mandir Trust" class="w-full bg-gray-900 border border-gray-700 rounded-xl p-3 text-white">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-300 mb-1">ਸੰਸਥਾ ਦੀ ਕਿਸਮ (Type)</label>
+                    <select class="w-full bg-gray-900 border border-gray-700 rounded-xl p-3 text-white">
+                        <option>ਗੁਰਦੁਆਰਾ (Gurudwara)</option>
+                        <option>ਮੰਦਿਰ (Mandir)</option>
+                        <option>ਮਸਜਿਦ (Mosque)</option>
+                        <option>ਚਰਚ (Church)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-300 mb-1">ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਨੰਬਰ / 80G / Trust Document (Verification)</label>
+                    <input type="file" required class="w-full bg-gray-900 border border-gray-700 rounded-xl p-2 text-gray-400 text-xs">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-300 mb-1">ਸੰਪਰਕ ਨੰਬਰ (Official Contact Number)</label>
+                    <input type="tel" required placeholder="+91 98765 43210" class="w-full bg-gray-900 border border-gray-700 rounded-xl p-3 text-white">
+                </div>
+                <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-600 text-black font-bold py-3 rounded-xl transition shadow-lg mt-2">
+                    ਵੈਰੀਫਿਕੇਸ਼ਨ ਲਈ ਭੇਜੋ (Submit for Verification)
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-gray-800 bg-gray-950 py-8 px-4 sm:px-6 lg:px-8 mt-12">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+            <div class="flex items-center gap-2">
+                <span class="font-bold text-gray-300">sadde.app</span>
+                <span>© 2026 ਸੱਦੇ. ਸਾਰੇ ਹੱਕ ਰਾਖਵੇਂ ਹਨ।</span>
+            </div>
+            <div class="flex items-center gap-6">
+                <a href="#" class="hover:text-amber-400 transition">ਸੁਰੱਖਿਆ ਨੀਤੀ (Fraud Control)</a>
+                <a href="#" onclick="openOrgModal()" class="hover:text-emerald-400 transition">ਧਾਰਮਿਕ ਸੰਸਥਾਵਾਂ ਰਜਿਸਟ੍ਰੇਸ਼ਨ</a>
+                <a href="#" class="hover:text-amber-400 transition">ਮੀਠਾਈ ਦੁਕਾਨਦਾਰ ਰਜਿਸਟ੍ਰੇਸ਼ਨ</a>
+                <a href="#" class="hover:text-amber-400 transition">ਮਦਦ (Support)</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT FOR TRANSLATION & DYNAMICS -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Dictionary for Multi-language Support
+        const translations = {
+            pa: {
+                navAuth: "ਮੇਜ਼ਬਾਨ / ਮਹਿਮਾਨ ਲੌਗਇਨ",
+                heroBadge: "ਬਹੁਤ ਸਾਰੇ ਸੱਦੇ? ਸਮਾਂ ਘੱਟ ਹੈ? ਕੋਈ ਗੱਲ ਨਹੀਂ!",
+                heroTitle1: "ਕਿਸੇ ਵੀ ਸਮਾਗਮ ਅਤੇ ਧਾਰਮਿਕ ਅਸਥਾਨ ਲਈ",
+                heroTitle2: "ਸ਼ਗਨ, ਭੇਟਾ ਅਤੇ ਮਿਠਾਈਆਂ ਭੇਜੋ",
+                heroSubtitle: "ਜੇਕਰ ਤੁਸੀਂ ਸ਼ਾਮਲ ਨਹੀਂ ਹੋ ਸਕਦੇ, ਤਾਂ ਵੀ ਆਪਣੇ ਅਜ਼ੀਜ਼ਾਂ ਦੀਆਂ ਖੁਸ਼ੀਆਂ ਅਤੇ ਧਾਰਮਿਕ ਸਮਾਗਮਾਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ। ਆਪਣੇ ਫੋਨ ਤੋਂ ਸਿੱਧਾ ਸ਼ਗਨ, ਵਧਾਈ ਕਾਰਡ, ਮਿਠਾਈਆਂ ਅਤੇ ਵੈਰੀਫਾਈਡ ਧਾਰਮਿਕ ਸੰਸਥਾਵਾਂ ਨੂੰ ਭੇਟਾ ਭੇਜੋ।",
+                placeholderSearch: "ਹੈਸ਼ਟੈਗ, ਮੋਹਰ/ਸਟੈਂਪ ਜਾਂ ਧਾਰਮਿਕ ਅਸਥਾਨ ਲੱਭੋ (e.g. #GurudwaraLudhiana)",
+                searchBtn: "ਲੱਭੋ",
+                searchHelp: "ਮੇਜ਼ਬਾਨ ਜਾਂ ਵੈਰੀਫਾਈਡ ਧਾਰਮਿਕ ਅਸਥਾਨ ਦੁਆਰਾ ਦਿੱਤਾ ਗਿਆ ਹੈਸ਼ਟੈਗ (Hashtag) ਜਾਂ ਸਟੈਂਪ/ਮੋਹਰ ਵਰਤੋ।",
+                feature1Title: "ਡਿਜੀਟਲ ਸ਼ਗਨ (Money Gift)",
+                feature1Desc: "Google Pay, PhonePe, ਜਾਂ Paytm ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਸਿੱਧਾ ਮੇਜ਼ਬਾਨ ਨੂੰ ਸ਼ਗਨ ਭੇਜੋ। 5 ਦਿਨਾਂ ਦੀ ਫੰਡ ਹੋਲਡ ਸੁਰੱਖਿਆ ਨਾਲ ਪੂਰੀ ਤਰ੍ਹਾਂ ਸੁਰੱਖਿਅਤ।",
+                feature2Title: "ਵਧਾਈ ਕਾਰਡ ਅਤੇ ਮੌਕੇ",
+                feature2Desc: "ਜਨਮਦਿਨ, ਵਿਆਹ, ਸਾਲਗ੍ਰਿਹ, ਗ੍ਰੈਜੂਏਸ਼ਨ ਜਾਂ ਆਪਣਾ ਨਿੱਜੀ ਮੌਕਾ ਚੁਣੋ। ਆਪਣੀਆਂ ਭਾਵਨਾਵਾਂ ਨੂੰ ਸੁੰਦਰ ਡਿਜੀਟਲ ਕਾਰਡ ਰਾਹੀਂ ਬਿਆਨ ਕਰੋ।",
+                feature4Title: "ਧਾਰਮਿਕ ਸੰਸਥਾਵਾਂ",
+                feature4Desc: "ਰਜਿਸਟਰਡ ਗੁਰਦੁਆਰਾ ਸਾਹਿਬ, ਮੰਦਰ, ਮਸਜਿਦ ਅਤੇ ਚਰਚ ਆਪਣੀ ਪ੍ਰੋਫਾਈਲ ਬਣਾ ਕੇ ਸ਼ਗਨ ਅਤੇ ਭੇਟਾ ਪ੍ਰਾਪਤ ਕਰ ਸਕਦੇ ਹਨ। ਵੈਰੀਫਿਕੇਸ਼ਨ ਜ਼ਰੂਰੀ ਹੈ।",
+                feature3Title: "ਸਥਾਨਕ ਮਿਠਾਈਆਂ (Sweet Shops)",
+                feature3Desc: "ਜਿਓਲੋਕੇਸ਼ਨ (Geolocation) ਰਾਹੀਂ ਨੇੜਲੀਆਂ ਮਿਠਾਈ ਦੀਆਂ ਦੁਕਾਨਾਂ ਨਾਲ ਜੁੜੋ। Zomato ਅਤੇ ਹੋਰ ਡਿਲੀਵਰੀ ਐਪਸ ਰਾਹੀਂ ਤੁਰੰਤ ਮਿਠਾਈ ਘਰ ਪਹੁੰਚਾਓ।",
+                demoTitle: "ਸ਼ਗਨ, ਭੇਟਾ ਅਤੇ ਤੋਹਫ਼ਾ ਭੇਜੋ (Send Gift Demo)",
+                btnSend: "ਇੱਕ ਟੈਪ ਨਾਲ ਸ਼ਗਨ / ਭੇਟਾ ਭੇਜੋ"
+            },
+            hi: {
+                navAuth: "आयोजक / अतिथि लॉगिन",
+                heroBadge: "बहुत सारे निमंत्रण? समय कम है? कोई बात नहीं!",
+                heroTitle1: "किसी भी शुभ अवसर और धार्मिक स्थल के लिए",
+                heroTitle2: "शगुन, भेंट और मिठाइयां भेजें",
+                heroSubtitle: "यदि आप व्यक्तिगत रूप से शामिल नहीं हो सकते, तो भी खुशियों और धार्मिक आयोजनों में शरीक हों। अपने फोन से सीधे शगुन, बधाई कार्ड, मिठाइयां और सत्यापित धार्मिक संस्थानों को भेंट भेजें।",
+                placeholderSearch: "हैशटैग, मुहर या धार्मिक स्थल खोजें (e.g. #GurudwaraLudhiana)",
+                searchBtn: "खोजें",
+                searchHelp: "आयोजक या सत्यापित धार्मिक स्थल द्वारा प्रदान किया गया हैशटैग (Hashtag) या मुहर दर्ज करें।",
+                feature1Title: "डिजिटल शगुन (Money Gift)",
+                feature1Desc: "Google Pay, PhonePe, या Paytm का उपयोग करके सीधे आयोजक को शगुन भेजें। 5 दिनों की फंड होल्ड सुरक्षा के साथ पूर्णतः सुरक्षित।",
+                feature2Title: "शुभकामना कार्ड एवं अवसर",
+                feature2Desc: "जन्मदिन, विवाह, वर्षगांठ, ग्रेजुएशन या अपना कस्टम अवसर चुनें। अपनी भावनाओं को सुंदर डिजिटल कार्ड से व्यक्त करें।",
+                feature4Title: "धार्मिक संस्थाएं",
+                feature4Desc: "पंजीकृत गुरुद्वारा साहिब, मंदिर, मस्जिद और चर्च अपनी प्रोफाइल बनाकर भेंट/दान प्राप्त कर सकते हैं। सत्यापन आवश्यक है।",
+                feature3Title: "स्थानीय मिठाई दुकानें (Sweet Shops)",
+                feature3Desc: "जियोलोकेशन द्वारा नजदीकी मिठाई दुकानों से जुड़ें। Zomato एवं डिलीवरी ऐप्स के माध्यम से सीधे घर मिठाई पहुंचाएं।",
+                demoTitle: "शगुन एवं भेंट भेजें (Send Gift Demo)",
+                btnSend: "एक टैप में शगुन / भेंट भेजें"
+            },
+            en: {
+                navAuth: "Host / Guest Login",
+                heroBadge: "Too many invitations? Limited time? We got you!",
+                heroTitle1: "For Every Event & Holy Sanctuary",
+                heroTitle2: "Send Cash Gifts, Offerings & Sweets",
+                heroSubtitle: "Unable to attend in person? Celebrate with your loved ones and spiritual communities. Send monetary gifts, cards, sweets, and offerings to verified religious organizations.",
+                placeholderSearch: "Enter Hashtag, Stamp/Mohr or Religious Org (e.g. #GurudwaraLudhiana)",
+                searchBtn: "Search",
+                searchHelp: "Use the Hashtag or Stamp/Mohr provided by your event host or verified religious organization.",
+                feature1Title: "Digital Cash Gifts",
+                feature1Desc: "Send money instantly via Google Pay, PhonePe, or Paytm. Secured with a 5-day fund hold to control fraud.",
+                feature2Title: "Greeting Cards & Occasions",
+                feature2Desc: "Birthdays, Weddings, Anniversaries, Graduations, or custom events. Pair your gift with a heartfelt digital card.",
+                feature4Title: "Religious Organizations",
+                feature4Desc: "Registered Mandirs, Gurudwaras, Mosques, and Churches can create verified profiles to receive direct gifts and offerings.",
+                feature3Title: "Local Sweet Shops",
+                feature3Desc: "Connect with local sweet vendors via geolocation. Seamless delivery powered by Zomato and local partners.",
+                demoTitle: "Send Gift & Offerings Demo",
+                btnSend: "Send Gift / Offering with One Tap"
+            }
+        };
+
+        function changeLanguage(lang) {
+            const t = translations[lang] || translations['en'];
+            
+            document.getElementById('navAuthText').innerText = t.navAuth;
+            document.getElementById('heroBadge').innerText = t.heroBadge;
+            document.getElementById('heroTitle1').innerText = t.heroTitle1;
+            document.getElementById('heroTitle2').innerText = t.heroTitle2;
+            document.getElementById('heroSubtitle').innerText = t.heroSubtitle;
+            document.getElementById('eventSearchInput').placeholder = t.placeholderSearch;
+            document.getElementById('searchBtnText').innerText = t.searchBtn;
+            document.getElementById('searchHelp').innerText = t.searchHelp;
+            document.getElementById('feature1Title').innerText = t.feature1Title;
+            document.getElementById('feature1Desc').innerText = t.feature1Desc;
+            document.getElementById('feature2Title').innerText = t.feature2Title;
+            document.getElementById('feature2Desc').innerText = t.feature2Desc;
+            document.getElementById('feature4Title').innerText = t.feature4Title;
+            document.getElementById('feature4Desc').innerText = t.feature4Desc;
+            document.getElementById('feature3Title').innerText = t.feature3Title;
+            document.getElementById('feature3Desc').innerText = t.feature3Desc;
+            document.getElementById('demoTitle').innerText = t.demoTitle;
+            document.getElementById('btnSend').innerText = t.btnSend;
+        }
+
+        function searchEvent() {
+            const query = document.getElementById('eventSearchInput').value;
+            if(!query) {
+                alert('ਕਿਰਪਾ ਕਰਕੇ ਹੈਸ਼ਟੈਗ ਜਾਂ ਸਟੈਂਪ/ਮੋਹਰ ਦਰਜ ਕਰੋ (Please enter a Hashtag or Stamp)');
+                return;
+            }
+            alert(`ਇਵੈਂਟ / ਅਸਥਾਨ ਮਿਲਿਆ: ${query}\nFound Event / Organization! Loading details...`);
+        }
+
+        function handleSendGift(e) {
+            e.preventDefault();
+            alert('ਧੰਨਵਾਦ! ਤੁਹਾਡਾ ਸ਼ਗਨ/ਭੇਟਾ ਅਤੇ ਮਿਠਾਈ ਦਾ ਆਰਡਰ ਸਫਲਤਾਪੂਰਵਕ ਭੇਜ ਦਿੱਤਾ ਗਿਆ ਹੈ। (Gift/Offering sent successfully!)');
+        }
+
+        function openOrgModal() {
+            document.getElementById('orgModal').classList.remove('hidden');
+        }
+
+        function closeOrgModal() {
+            document.getElementById('orgModal').classList.add('hidden');
+        }
+
+        function handleOrgRegister(e) {
+            e.preventDefault();
+            alert('ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਬੇਨਤੀ ਪ੍ਰਾਪਤ ਹੋ ਗਈ ਹੈ! ਵੈਰੀਫਿਕੇਸ਼ਨ ਟੀਮ 24-48 ਘੰਟਿਆਂ ਵਿੱਚ ਤੁਹਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੇਗੀ। (Verification Request Submitted!)');
+            closeOrgModal();
+        }
+
+        function toggleAuthModal() {
+            alert('ਮੇਜ਼ਬਾਨ/ਮਹਿਮਾਨ/ਸੰਸਥਾ ਲੌਗਇਨ: ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ ਫੋਨ ਨੰਬਰ ਦਰਜ ਕਰੋ। (Host/Guest/Org Login Modal)');
+        }
+    </script>
+</body>
+</html>
